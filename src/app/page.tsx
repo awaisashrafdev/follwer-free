@@ -40,7 +40,7 @@ export default function FreeFollowersPage() {
       // but here we prevent default to do client validation first
       // After validation, submit the form manually:
       e.currentTarget.submit();
-    } catch (error) {
+    } catch {
       setSubmitMessage("An error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
