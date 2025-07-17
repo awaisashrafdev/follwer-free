@@ -47,7 +47,7 @@ export default function FreeFollowersPage() {
       window.location.href = `mailto:awaisashraf.dev@gmail.com?subject=${subject}&body=${body}`;
 
       setSubmitMessage("Your email client should open now.");
-    } catch (error) {
+    } catch {
       setSubmitMessage("An error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
